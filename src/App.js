@@ -1,25 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react';
+import Courses from './Courses';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import Navbar from './Navbar';
+import Students from './Students';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends Component {
+
+  render() {
+    return <Router>
+
+      <div className="container">
+
+        <Navbar></Navbar>
+
+        <Route exact path="/" component={Courses}></Route>
+        <Route path="/students" render={props => (
+          <React.Fragment>
+            <Students studentName="Akshay"></Students>
+            {/* <Fees fess="5500"></Fees> */}
+          </React.Fragment>
+        )}></Route>
+
+      </div>
+
+    </Router>
+  }
+
 }
+
 
 export default App;
