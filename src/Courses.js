@@ -1,43 +1,57 @@
 import { Component } from 'react';
 import Course from './Course'
 import CreateCourses from './CreateCourse'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { getCourses } from './actions/courseAction'
 class Courses extends Component {
 
-    state = {
-        courseList: []
-    }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/students')
-            .then(res => {
-                this.setState({ courseList: res.data })
-            })
+
+        this.props.getCourses();
+
+    }
+
+    componentDidUpdate() {
+        console.log(this.props.courseList)
+
     }
 
     deleteCourse = (courseId) => {
 
-        let clist = this.state.courseList.filter((course) => { return course.courseId !== courseId })
+        let clist = this.props.courseList.filter((course) => { return course.courseId !== courseId })
         this.setState({ courseList: clist });
     }
 
     addCourse = (courseId, courseName, fees) => {
-        this.setState({ courseList: [...this.state.courseList, { courseId, courseName, fees }] })
+        this.setState({ courseList: [...this.props.courseList, { courseId, courseName, fees }] })
     }
 
 
     render() {
-        return <div>
-            <CreateCourses addCourse={this.addCourse} />
-            <div className="jumbotron">
-                {this.state.courseList.map(course => (
-                    <Course key={course.courseId} courseDetails={course} deleteCourse={this.deleteCourse} />
-                ))}
-            </div>
+        let loading = true;
 
+        if (this.props.courseList !== null) {
+            loading = false;
+        }
+        return loading ? <h1> loading</h1> :
+            <div>
+                <CreateCourses addCourse={this.addCourse} />
+                <div className="jumbotron">
+                    {this.props.courseList.map(course => (
+                        <Course key={course.courseId} courseDetails={course} deleteCourse={this.deleteCourse} />
+                    ))}
+                </div>
+                }
+        
         </div>
     }
 
 }
 
-export default Courses;
+const mapStatetoProps = state => (
+    { courseList: state.course.courseList }
+
+)
+
+export default connect(mapStatetoProps, { getCourses })(Courses);

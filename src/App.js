@@ -5,29 +5,32 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Navbar from './Navbar';
 import Students from './Students';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-
+import { Provider } from 'react-redux'
+import store from './Store'
 
 
 class App extends Component {
 
   render() {
-    return <Router>
+    return <Provider store={store}>
+      <Router>
 
-      <div className="container">
+        <div className="container">
 
-        <Navbar></Navbar>
+          <Navbar></Navbar>
 
-        <Route exact path="/" component={Courses}></Route>
-        <Route path="/students" render={props => (
-          <React.Fragment>
-            <Students studentName="Akshay"></Students>
-            {/* <Fees fess="5500"></Fees> */}
-          </React.Fragment>
-        )}></Route>
+          <Route exact path="/" component={Courses}></Route>
+          <Route path="/students" render={props => (
+            <React.Fragment>
+              <Students studentName="Akshay"></Students>
+              {/* <Fees fess="5500"></Fees> */}
+            </React.Fragment>
+          )}></Route>
 
-      </div>
+        </div>
 
-    </Router>
+      </Router>
+    </Provider>
   }
 
 }

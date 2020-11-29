@@ -11,10 +11,10 @@ class Navbar extends Component {
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <Link className="nav-link" to="/">Home</Link>
-                            </li>
+                        </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/students">Students</Link>
-                            </li>
+                        </li>
 
                     </ul>
                 </div>
