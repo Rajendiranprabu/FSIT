@@ -3,6 +3,7 @@ import Course from './Course'
 import CreateCourses from './CreateCourse'
 import { connect } from 'react-redux'
 import { getCourses } from './actions/courseAction'
+import { Redirect } from 'react-router';
 class Courses extends Component {
 
 
@@ -12,10 +13,10 @@ class Courses extends Component {
 
     }
 
-    componentDidUpdate() {
-        console.log(this.props.courseList)
+    // componentDidUpdate() {
+    //     console.log(this.props.courseList)
 
-    }
+    // }
 
     deleteCourse = (courseId) => {
 
@@ -34,7 +35,7 @@ class Courses extends Component {
         if (this.props.courseList !== null) {
             loading = false;
         }
-        return loading ? <h1> loading</h1> :
+        return !this.props.isAuthenticated ? <Redirect to='/login'></Redirect> : loading ? <h1> loading</h1> :
             <div>
                 <CreateCourses addCourse={this.addCourse} />
                 <div className="jumbotron">
@@ -43,14 +44,17 @@ class Courses extends Component {
                     ))}
                 </div>
                 }
-        
+
         </div>
     }
 
 }
 
 const mapStatetoProps = state => (
-    { courseList: state.course.courseList }
+    {
+        courseList: state.course.courseList,
+        isAuthenticated: state.login.isAuthenticated
+    }
 
 )
 

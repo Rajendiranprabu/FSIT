@@ -7,6 +7,7 @@ import Students from './Students';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './Store'
+import Login from './Login'
 
 
 class App extends Component {
@@ -26,8 +27,10 @@ class App extends Component {
               {/* <Fees fess="5500"></Fees> */}
             </React.Fragment>
           )}></Route>
+          <Route exact path='/login' component={Login}></Route>
 
         </div>
+
 
       </Router>
     </Provider>
