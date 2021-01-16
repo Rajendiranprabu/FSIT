@@ -1,0 +1,15 @@
+server:
+ port: 8100
+spring:
+ application:
+  name: zuul-gateway-service
+  
+
+zuul:
+ routes:
+  products:
+   path: /api/products-service/**
+   serviceId: products-service
+  orders:
+   path: /api/order-service/**
+   serviceId: order-service
